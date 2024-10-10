@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pas Je Personage Aan</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .controls div {
+            width: 30%;
+            padding: 10px;
+        }
+        canvas {
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pas Je Personage Aan</h1>
+
+<!-- Upload afbeelding -->
+<input type="file" id="imageInput" accept="image/*" onchange="loadImage(event)">
+
+<!-- Besturingselementen voor aanpassingen -->
+<div class="controls">
+    <div>
+        <h3>Hoofd</h3>
+        <label>Hoofdgrootte:</label>
+        <input type="range" min="1" max="10" value="5" id="headSizeRange">
+    </div>
+    <div>
+        <h3>Ogen</h3>
+        <label>Ooggrootte:</label>
+        <input type="range" min="1" max="10" value="5" id="eyeSizeRange">
+        <label>Oogkleur:</label>
+        <input type="color" id="eyeColorPicker">
+    </div>
+    <div>
+        <h3>Mond</h3>
+        <label>Mondbreedte:</label>
+        <input type="range" min="1" max="10" value="5" id="mouthWidthRange">
+    </div>
+    <div>
+        <h3>Neus</h3>
+        <label>Neusgrootte:</label>
+        <input type="range" min="1" max="10" value="5" id="noseSizeRange">
+    </div>
+    <div>
+        <h3>Oren</h3>
+        <label>Oorgrootte:</label>
+        <input type="range" min="1" max="10" value="5" id="earSizeRange">
+    </div>
+    <div>
+        <h3>Haarkleur/Vachtkleur</h3>
+        <label>Kleur:</label>
+        <input type="color" id="hairColorPicker">
+    </div>
+</div>
+
+<!-- Canvas waar de afbeelding verschijnt -->
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+    let image, canvas, ctx;
+
+    function loadImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            image = new Image();
+            image.src = reader.result;
+            image.onload = function () {
+                drawImage();
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function drawImage() {
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+</body>
+</html>
+
